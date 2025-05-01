@@ -174,4 +174,19 @@ function getSubstitutionRequests($conn, $userID) {
 // Include the auto scheduler at the end of the file
 // This will allow background tasks to run automatically
 require_once __DIR__ . '/auto_scheduler.php';
+
+/**
+ * Debug function to log SQL errors to a file
+ */
+function logSqlError($conn, $message) {
+    $logDir = __DIR__ . '/../logs';
+    if (!file_exists($logDir)) {
+        mkdir($logDir, 0755, true);
+    }
+    
+    $logFile = $logDir . '/sql_errors.log';
+    $timestamp = date('Y-m-d H:i:s');
+    $errorMsg = "[$timestamp] $message - SQL Error: " . mysqli_error($conn) . "\n";
+    file_put_contents($logFile, $errorMsg, FILE_APPEND);
+}
 ?>

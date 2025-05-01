@@ -10,7 +10,16 @@ if (!isset($_SESSION['UserID'])) {
 }
 
 $userID = $_SESSION['UserID'];
-$username = $_SESSION['Username'];
+$username = isset($_SESSION['Username']) ? $_SESSION['Username'] : '';
+
+// Get count of pending substitute requests for the badge
+$pendingSubsQuery = "SELECT COUNT(*) as count FROM leave_substitutes 
+                    WHERE SubstituteID = ? AND Status = 'Pending'";
+$pendingStmt = $conn->prepare($pendingSubsQuery);
+$pendingStmt->bind_param("i", $userID);
+$pendingStmt->execute();
+$pendingResult = $pendingStmt->get_result();
+$pendingSubstitutes = $pendingResult->fetch_assoc()['count'];
 
 // Get year filter (default to current year)
 $year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
@@ -92,7 +101,7 @@ $recentResult = mysqli_query($conn, $recentQuery);
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
@@ -102,7 +111,7 @@ $recentResult = mysqli_query($conn, $recentQuery);
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">
+                            <a class="nav-link active" href="dashboard.php">
                                 <i class="fas fa-home"></i> Dashboard
                             </a>
                         </li>
@@ -117,7 +126,15 @@ $recentResult = mysqli_query($conn, $recentQuery);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="leave_reports.php">
+                            <a class="nav-link" href="substitute_requests.php">
+                                <i class="fas fa-user-friends"></i> Substitute Requests
+                                <?php if ($pendingSubstitutes > 0): ?>
+                                <span class="badge badge-warning ml-2"><?php echo $pendingSubstitutes; ?></span>
+                                <?php endif; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="leave_reports.php">
                                 <i class="fas fa-chart-bar"></i> Leave Reports
                             </a>
                         </li>

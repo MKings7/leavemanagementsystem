@@ -116,7 +116,7 @@ $result = mysqli_query($conn, $query);
     <link rel="stylesheet" href="css/admin_dashboard.css">
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
@@ -146,13 +146,18 @@ $result = mysqli_query($conn, $query);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="email_settings.php">
+                            <a class="nav-link active" href="email_settings.php">
                                 <i class="fas fa-envelope"></i> Email Settings
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="leave_types.php">
+                            <a class="nav-link" href="leave_types.php">
                                 <i class="fas fa-tasks"></i> Leave Types
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="scheduled_tasks.php">
+                                <i class="fas fa-clock"></i> Scheduled Tasks
                             </a>
                         </li>
                         <li class="nav-item">
@@ -160,7 +165,6 @@ $result = mysqli_query($conn, $query);
                                 <i class="fas fa-chart-bar"></i> Reports
                             </a>
                         </li>
-                       
                         <li class="nav-item">
                             <a class="nav-link" href="../logout.php">
                                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -169,7 +173,6 @@ $result = mysqli_query($conn, $query);
                     </ul>
                 </div>
             </nav>
-
             <!-- Main content -->
             <main role="main" class="col-md-10 ml-sm-auto px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

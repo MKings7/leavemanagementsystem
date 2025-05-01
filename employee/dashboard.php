@@ -10,7 +10,7 @@ if (!isset($_SESSION['UserID'])) {
 }
 
 $userID = $_SESSION['UserID'];
-$username = $_SESSION['Username'];
+$username = isset($_SESSION['Username']) ? $_SESSION['Username'] : '';
 
 // Get leave statistics for current year
 $year = date('Y');
@@ -29,12 +29,14 @@ WHERE UserID = $userID AND YEAR(StartDate) = $year";
 $statsResult = mysqli_query($conn, $statsQuery);
 $stats = mysqli_fetch_assoc($statsResult);
 
-// Get pending substitute requests count
-$pendingSubsQuery = "SELECT COUNT(*) as pending_count 
-                    FROM leave_substitutes 
-                    WHERE SubstituteID = $userID AND Status = 'Pending'";
-$pendingSubsResult = mysqli_query($conn, $pendingSubsQuery);
-$pendingSubstitutes = mysqli_fetch_assoc($pendingSubsResult)['pending_count'];
+// Get count of pending substitute requests for the badge
+$pendingSubsQuery = "SELECT COUNT(*) as count FROM leave_substitutes 
+                    WHERE SubstituteID = ? AND Status = 'Pending'";
+$pendingStmt = $conn->prepare($pendingSubsQuery);
+$pendingStmt->bind_param("i", $userID);
+$pendingStmt->execute();
+$pendingResult = $pendingStmt->get_result();
+$pendingSubstitutes = $pendingResult->fetch_assoc()['count'];
 
 // Get recent leave requests
 $recentRequestsQuery = "SELECT lr.*, lt.LeaveName,

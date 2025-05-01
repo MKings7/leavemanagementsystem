@@ -89,7 +89,7 @@ $result = mysqli_query($conn, $query);
     <link rel="stylesheet" href="css/admin_dashboard.css">
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
@@ -104,7 +104,7 @@ $result = mysqli_query($conn, $query);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="leave_requests.php">
+                            <a class="nav-link" href="leave_requests.php">
                                 <i class="fas fa-calendar-check"></i> Leave Requests
                             </a>
                         </li>
@@ -119,7 +119,7 @@ $result = mysqli_query($conn, $query);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="email_settings.php">
+                            <a class="nav-link active" href="email_settings.php">
                                 <i class="fas fa-envelope"></i> Email Settings
                             </a>
                         </li>
@@ -129,11 +129,15 @@ $result = mysqli_query($conn, $query);
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="scheduled_tasks.php">
+                                <i class="fas fa-clock"></i> Scheduled Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="reports.php">
                                 <i class="fas fa-chart-bar"></i> Reports
                             </a>
                         </li>
-                     
                         <li class="nav-item">
                             <a class="nav-link" href="../logout.php">
                                 <i class="fas fa-sign-out-alt"></i> Logout

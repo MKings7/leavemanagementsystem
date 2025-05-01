@@ -51,7 +51,7 @@ $recentResult = mysqli_query($conn, $recentQuery);
     <link rel="stylesheet" href="css/admin_dashboard.css">
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
@@ -61,7 +61,7 @@ $recentResult = mysqli_query($conn, $recentQuery);
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="dashboard.php">
+                            <a class="nav-link" href="dashboard.php">
                                 <i class="fas fa-home"></i> Dashboard
                             </a>
                         </li>
@@ -76,13 +76,23 @@ $recentResult = mysqli_query($conn, $recentQuery);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="email_settings.php">
+                            <a class="nav-link" href="manage_departments.php">
+                                <i class="fas fa-building"></i> Manage Departments
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="email_settings.php">
                                 <i class="fas fa-envelope"></i> Email Settings
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="leave_types.php">
                                 <i class="fas fa-tasks"></i> Leave Types
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="scheduled_tasks.php">
+                                <i class="fas fa-clock"></i> Scheduled Tasks
                             </a>
                         </li>
                         <li class="nav-item">
@@ -98,7 +108,6 @@ $recentResult = mysqli_query($conn, $recentQuery);
                     </ul>
                 </div>
             </nav>
-
             <!-- Main content -->
             <main role="main" class="col-md-10 ml-sm-auto px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

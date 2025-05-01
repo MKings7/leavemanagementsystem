@@ -100,3 +100,25 @@
 [2025-04-30 18:21:40] Successful login - UserID: 20 - IP: 127.0.0.1
 [2025-05-01 13:34:36] Successful login - UserID: 4 - IP: 127.0.0.1
 [2025-05-01 13:39:46] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-05-01 13:50:15] Failed login attempt - Invalid credentials - Username: martin - IP: 127.0.0.1
+[2025-05-01 13:50:26] Failed login attempt - Invalid credentials - Username: martin - IP: 127.0.0.1
+[2025-05-01 13:50:49] Failed login attempt - Invalid credentials - Username: martin - IP: 127.0.0.1
+[2025-05-01 13:51:33] Successful login - UserID: 23 - IP: 127.0.0.1
+[2025-05-01 13:56:03] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-05-01 13:58:58] Failed login attempt - Invalid credentials - Username: admin - IP: 127.0.0.1
+[2025-05-01 13:59:04] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-05-01 14:07:57] Successful login - UserID: 23 - IP: 127.0.0.1
+[2025-05-01 14:35:27] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-05-01 14:38:02] Successful login - UserID: 23 - IP: 127.0.0.1
+[2025-05-01 14:38:24] Failed login attempt - Invalid credentials - Username: ban - IP: 127.0.0.1
+[2025-05-01 14:39:10] Successful login - UserID: 15 - IP: 127.0.0.1
+[2025-05-01 14:39:49] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-05-01 14:41:50] Failed login attempt - Invalid credentials - Username: munyua1234 - IP: 127.0.0.1
+[2025-05-01 14:42:04] Failed login attempt - Invalid credentials - Username: munyua1234 - IP: 127.0.0.1
+[2025-05-01 14:46:06] Failed login attempt - Invalid credentials - Username: munyua1234 - IP: 127.0.0.1
+[2025-05-01 14:46:17] Failed login attempt - Invalid credentials - Username: employee - IP: 127.0.0.1
+[2025-05-01 14:46:37] Failed login attempt - Invalid credentials - Username: Munyua - IP: 127.0.0.1
+[2025-05-01 14:47:21] Successful login - UserID: 24 - IP: 127.0.0.1
+[2025-05-01 14:48:43] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-05-01 14:51:10] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-05-01 14:54:48] Successful login - UserID: 23 - IP: 127.0.0.1

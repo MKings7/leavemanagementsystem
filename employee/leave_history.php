@@ -10,7 +10,16 @@ if (!isset($_SESSION['UserID'])) {
 }
 
 $userID = $_SESSION['UserID'];
-$username = $_SESSION['Username'];
+$username = isset($_SESSION['Username']) ? $_SESSION['Username'] : '';
+
+// Get count of pending substitute requests for the badge
+$pendingSubsQuery = "SELECT COUNT(*) as count FROM leave_substitutes 
+                    WHERE SubstituteID = ? AND Status = 'Pending'";
+$pendingStmt = $conn->prepare($pendingSubsQuery);
+$pendingStmt->bind_param("i", $userID);
+$pendingStmt->execute();
+$pendingResult = $pendingStmt->get_result();
+$pendingSubstitutes = $pendingResult->fetch_assoc()['count'];
 
 // Pagination settings
 $recordsPerPage = 10;
@@ -78,7 +87,7 @@ function getSubstituteInfo($requestID, $conn) {
     <link rel="stylesheet" href="css/employee_dashboard.css">
 </head>
 <body>
-    <div class="container-fluid">
+<div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
@@ -88,7 +97,7 @@ function getSubstituteInfo($requestID, $conn) {
                     </div>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="dashboard.php">
+                            <a class="nav-link active" href="dashboard.php">
                                 <i class="fas fa-home"></i> Dashboard
                             </a>
                         </li>
@@ -98,8 +107,21 @@ function getSubstituteInfo($requestID, $conn) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="leave_history.php">
+                            <a class="nav-link" href="leave_history.php">
                                 <i class="fas fa-history"></i> Leave History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="substitute_requests.php">
+                                <i class="fas fa-user-friends"></i> Substitute Requests
+                                <?php if ($pendingSubstitutes > 0): ?>
+                                <span class="badge badge-warning ml-2"><?php echo $pendingSubstitutes; ?></span>
+                                <?php endif; ?>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="leave_reports.php">
+                                <i class="fas fa-chart-bar"></i> Leave Reports
                             </a>
                         </li>
                         <li class="nav-item">
@@ -110,7 +132,6 @@ function getSubstituteInfo($requestID, $conn) {
                     </ul>
                 </div>
             </nav>
-
             <!-- Main content -->
             <main role="main" class="col-md-10 ml-sm-auto px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

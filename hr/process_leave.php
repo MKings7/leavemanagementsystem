@@ -44,6 +44,14 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
     $stmt->bind_param("sssi", $status, $userID, $currentTime, $requestID);
     
     if ($stmt->execute()) {
+        // Fetch employee details
+        $requestQuery = $conn->prepare("SELECT UserID, StartDate, EndDate, LeaveTypeID FROM leave_requests WHERE RequestID = ?");
+        $requestQuery->bind_param("i", $requestID);
+        $requestQuery->execute();
+        $result = $requestQuery->get_result();
+        $leaveRequest = $result->fetch_assoc();
+        $employeeID = $leaveRequest['UserID'];
+        
         // Send email notification
         include_once "../includes/email_functions.php";
         $emailStatus = "Not sent";
@@ -58,16 +66,57 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
                 $emailStatus = "Disabled";
             }
             
-            // Always add a database notification
-            $requestQuery = $conn->prepare("SELECT UserID FROM leave_requests WHERE RequestID = ?");
-            $requestQuery->bind_param("i", $requestID);
-            $requestQuery->execute();
-            $result = $requestQuery->get_result();
-            $employeeID = $result->fetch_assoc()['UserID'];
-            
-            // Create notification
+            // Always add a database notification for the employee
             $message = "Your leave request has been " . strtolower($status) . ".";
             $conn->query("INSERT INTO notifications (UserID, Message, Type, IsRead) VALUES ($employeeID, '$message', 'leave_status', 0)");
+            
+            // If approved, check for substitute and notify them
+            if ($status === 'Approved') {
+                try {
+                    // Modified query to avoid using ls.UserID column
+                    $subQuery = $conn->prepare("SELECT 
+                            ls.SubstituteID, 
+                            u.Fullnames AS EmployeeName, 
+                            u2.Fullnames AS SubstituteName, 
+                            u2.EmailAddress AS SubstituteEmail, 
+                            lt.LeaveName
+                        FROM leave_substitutes ls
+                        JOIN leave_requests lr ON ls.RequestID = lr.RequestID 
+                        JOIN users u ON lr.UserID = u.UserID
+                        JOIN users u2 ON ls.SubstituteID = u2.UserID
+                        JOIN leave_types lt ON lr.LeaveTypeID = lt.LeaveTypeID
+                        WHERE ls.RequestID = ?");
+                    
+                    $subQuery->bind_param("i", $requestID);
+                    $subQuery->execute();
+                    $subResult = $subQuery->get_result();
+                    
+                    if ($subResult->num_rows > 0) {
+                        $substitute = $subResult->fetch_assoc();
+                        
+                        // Format dates for display
+                        $startDate = date('d-M-Y', strtotime($leaveRequest['StartDate']));
+                        $endDate = date('d-M-Y', strtotime($leaveRequest['EndDate']));
+                        $resumeDate = date('d-M-Y', strtotime('+1 day', strtotime($leaveRequest['EndDate'])));
+                        
+                        // Create notification for substitute
+                        $subMessage = "Leave for {$substitute['EmployeeName']} has been approved. You are assigned as substitute from $startDate to $endDate for {$substitute['LeaveName']} leave. They will resume duty on $resumeDate.";
+                        $conn->query("INSERT INTO notifications (UserID, Message, Type, IsRead) 
+                                    VALUES ({$substitute['SubstituteID']}, '$subMessage', 'substitute_assigned', 0)");
+                        
+                        // Send email to substitute
+                        if (areNotificationsEnabled($conn)) {
+                            try {
+                                sendSubstituteNotification($conn, $requestID);
+                            } catch (Exception $e) {
+                                error_log("Failed to send substitute email: " . $e->getMessage());
+                            }
+                        }
+                    }
+                } catch (Exception $e) {
+                    error_log("Error processing substitute notification: " . $e->getMessage());
+                }
+            }
         } catch (Exception $e) {
             // Log error but continue processing
             error_log("Error sending notification: " . $e->getMessage());
