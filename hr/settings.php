@@ -2,6 +2,7 @@
 session_start();
 include "../includes/dbconnect.php";
 include "../includes/functions.php";
+include_once "../includes/email_functions.php";
 
 // Check if user is logged in and is an HR admin
 if (!isset($_SESSION['UserID']) || !isset($_SESSION['hr']) || $_SESSION['hr'] != 1) {
@@ -72,6 +73,57 @@ if (isset($_POST['change_password'])) {
     }
 }
 
+// Get email settings from database
+$emailSettings = getEmailSettings($conn);
+
+// Handle email settings update
+if (isset($_POST['update_email_settings'])) {
+    $smtp_host = $_POST['smtp_host'];
+    $smtp_port = $_POST['smtp_port'];
+    $smtp_username = $_POST['smtp_username'];
+    $smtp_from_email = $_POST['smtp_from_email'];
+    $smtp_from_name = $_POST['smtp_from_name'];
+    $smtp_encryption = $_POST['smtp_encryption'];
+    
+    // Only update password if a new one is provided
+    $smtp_password = $_POST['smtp_password'];
+    
+    if (empty($emailSettings)) {
+        // Insert new settings
+        $query = "INSERT INTO email_settings (smtp_host, smtp_port, smtp_username, smtp_password, 
+                 smtp_from_email, smtp_from_name, smtp_encryption) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("sisssss", $smtp_host, $smtp_port, $smtp_username, $smtp_password, 
+                         $smtp_from_email, $smtp_from_name, $smtp_encryption);
+    } else {
+        // Update existing settings
+        if (empty($smtp_password)) {
+            // Don't update password if not provided
+            $query = "UPDATE email_settings SET smtp_host = ?, smtp_port = ?, smtp_username = ?, 
+                    smtp_from_email = ?, smtp_from_name = ?, smtp_encryption = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("sissss", $smtp_host, $smtp_port, $smtp_username, 
+                            $smtp_from_email, $smtp_from_name, $smtp_encryption);
+        } else {
+            // Update with new password
+            $query = "UPDATE email_settings SET smtp_host = ?, smtp_port = ?, smtp_username = ?, 
+                    smtp_password = ?, smtp_from_email = ?, smtp_from_name = ?, smtp_encryption = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("sisssss", $smtp_host, $smtp_port, $smtp_username, $smtp_password, 
+                            $smtp_from_email, $smtp_from_name, $smtp_encryption);
+        }
+    }
+    
+    if ($stmt->execute()) {
+        $email_settings_success = "Email settings updated successfully!";
+        // Refresh email settings
+        $emailSettings = getEmailSettings($conn);
+    } else {
+        $email_settings_error = "Failed to update email settings: " . $conn->error;
+    }
+}
+
 // Get system settings
 $settings = array(
     'company_name' => 'NPSC',
@@ -80,7 +132,7 @@ $settings = array(
     'max_pending_requests' => 3,
     'fiscal_year_start' => 'January',
     'weekend_days' => 'Saturday,Sunday',
-    'notification_emails' => true
+    'notification_emails' => areNotificationsEnabled($conn)
 );
 
 // Handle system settings update
@@ -398,6 +450,7 @@ if (isset($_POST['update_settings'])) {
         <div class="settings-tabs">
             <button class="tab-link active" onclick="openTab(event, 'profile')"><i class="fas fa-user"></i> Profile</button>
             <button class="tab-link" onclick="openTab(event, 'password')"><i class="fas fa-lock"></i> Password</button>
+            <button class="tab-link" onclick="openTab(event, 'email')"><i class="fas fa-envelope"></i> Email Settings</button>
             <button class="tab-link" onclick="openTab(event, 'system')"><i class="fas fa-cogs"></i> System Settings</button>
         </div>
         
@@ -485,6 +538,59 @@ if (isset($_POST['update_settings'])) {
             </form>
         </div>
         
+        <!-- Email Settings Tab -->
+        <div id="email" class="tab-content">
+            <?php if (isset($email_settings_success)): ?>
+                <div class="alert alert-success">
+                    <?php echo $email_settings_success; ?>
+                </div>
+            <?php endif; ?>
+            
+            <?php if (isset($email_settings_error)): ?>
+                <div class="alert alert-danger">
+                    <?php echo $email_settings_error; ?>
+                </div>
+            <?php endif; ?>
+            
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="smtp_host">SMTP Server</label>
+                    <input type="text" id="smtp_host" name="smtp_host" value="<?php echo htmlspecialchars($emailSettings['smtp_host'] ?? ''); ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="smtp_port">SMTP Port</label>
+                    <input type="number" id="smtp_port" name="smtp_port" value="<?php echo htmlspecialchars($emailSettings['smtp_port'] ?? '587'); ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="smtp_encryption">Encryption</label>
+                    <select id="smtp_encryption" name="smtp_encryption">
+                        <option value="tls" <?php echo (isset($emailSettings['smtp_encryption']) && $emailSettings['smtp_encryption'] == 'tls') ? 'selected' : ''; ?>>TLS</option>
+                        <option value="ssl" <?php echo (isset($emailSettings['smtp_encryption']) && $emailSettings['smtp_encryption'] == 'ssl') ? 'selected' : ''; ?>>SSL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="smtp_username">SMTP Username</label>
+                    <input type="text" id="smtp_username" name="smtp_username" value="<?php echo htmlspecialchars($emailSettings['smtp_username'] ?? ''); ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="smtp_password">SMTP Password (leave empty to keep current)</label>
+                    <input type="password" id="smtp_password" name="smtp_password">
+                </div>
+                <div class="form-group">
+                    <label for="smtp_from_email">From Email</label>
+                    <input type="email" id="smtp_from_email" name="smtp_from_email" value="<?php echo htmlspecialchars($emailSettings['smtp_from_email'] ?? ''); ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="smtp_from_name">From Name</label>
+                    <input type="text" id="smtp_from_name" name="smtp_from_name" value="<?php echo htmlspecialchars($emailSettings['smtp_from_name'] ?? 'Leave Management System'); ?>" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" name="update_email_settings" class="btn">Save Email Settings</button>
+                    <button type="button" onclick="testEmailSettings()" class="btn" style="background-color: #9b59b6;">Test Settings</button>
+                </div>
+            </form>
+        </div>
+        
         <!-- System Settings Tab -->
         <div id="system" class="tab-content">
             <?php if (isset($settings_success)): ?>
@@ -541,9 +647,13 @@ if (isset($_POST['update_settings'])) {
                         </label>
                     </div>
                     <div class="checkbox-group">
-                        <label>
-                            <input type="checkbox" name="notification_emails" value="1" <?php echo $settings['notification_emails'] ? 'checked' : ''; ?>>
+                        <label style="<?php echo areNotificationsEnabled($conn) ? '' : 'color: #e74c3c;'; ?>"></label></label>
+                            <input type="checkbox" name="notification_emails" value="1" <?php echo $settings['notification_emails'] ? 'checked' : ''; ?> 
+                                <?php echo areNotificationsEnabled($conn) ? '' : 'disabled'; ?>>
                             Send email notifications for leave status changes
+                            <?php if (!areNotificationsEnabled($conn)): ?>
+                                <span style="font-size: 12px; color: #e74c3c;">(Configure email settings first)</span>
+                            <?php endif; ?>
                         </label>
                     </div>
                 </div>
@@ -569,6 +679,30 @@ if (isset($_POST['update_settings'])) {
             // Show the current tab and add "active" class to the button
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+        }
+        
+        function testEmailSettings() {
+            // Create a form data object to submit current form values
+            var formData = new FormData(document.querySelector('#email form'));
+            formData.append('test_email', 'true');
+            
+            // Create a temporary form and submit it in a new tab for testing
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'test_email.php';
+            form.target = '_blank';
+            
+            for (var pair of formData.entries()) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = pair[0];
+                input.value = pair[1];
+                form.appendChild(input);
+            }
+            
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
         }
         
         // Auto-hide alerts after 5 seconds

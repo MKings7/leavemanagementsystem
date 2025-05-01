@@ -46,10 +46,19 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
     if ($stmt->execute()) {
         // Send email notification
         include_once "../includes/email_functions.php";
+        $emailStatus = "Not sent";
+        
         try {
-            sendLeaveStatusNotification($conn, $requestID, $status);
+            // Check if email notifications are enabled
+            if (areNotificationsEnabled($conn)) {
+                if (sendLeaveStatusNotification($conn, $requestID, $status)) {
+                    $emailStatus = "Success";
+                }
+            } else {
+                $emailStatus = "Disabled";
+            }
             
-            // Also add a database notification
+            // Always add a database notification
             $requestQuery = $conn->prepare("SELECT UserID FROM leave_requests WHERE RequestID = ?");
             $requestQuery->bind_param("i", $requestID);
             $requestQuery->execute();
@@ -62,13 +71,14 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
         } catch (Exception $e) {
             // Log error but continue processing
             error_log("Error sending notification: " . $e->getMessage());
+            $emailStatus = "Failed: " . $e->getMessage();
         }
         
         // Log the action
-        $logMessage = "Leave request #$requestID was $status by user $userID at $currentTime\n";
+        $logMessage = "Leave request #$requestID was $status by user $userID at $currentTime | Email: $emailStatus\n";
         file_put_contents('../leave_actions.log', $logMessage, FILE_APPEND);
         
-        header("Location: leave_requests.php?success=request_" . strtolower($status));
+        header("Location: leave_requests.php?success=request_" . strtolower($status) . "&email=" . urlencode($emailStatus));
         exit();
     } else {
         header("Location: leave_requests.php?error=db_error&message=" . urlencode($stmt->error));
@@ -117,10 +127,19 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
         if ($stmt->execute()) {
             // Send email notification
             include_once "../includes/email_functions.php";
+            $emailStatus = "Not sent";
+            
             try {
-                sendLeaveStatusNotification($conn, $requestID, $status);
+                // Check if email notifications are enabled
+                if (areNotificationsEnabled($conn)) {
+                    if (sendLeaveStatusNotification($conn, $requestID, $status)) {
+                        $emailStatus = "Success";
+                    }
+                } else {
+                    $emailStatus = "Disabled";
+                }
                 
-                // Also add a database notification with rejection reason
+                // Always add a database notification
                 $requestQuery = $conn->prepare("SELECT UserID FROM leave_requests WHERE RequestID = ?");
                 $requestQuery->bind_param("i", $requestID);
                 $requestQuery->execute();
@@ -133,9 +152,10 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
             } catch (Exception $e) {
                 // Log error but continue processing
                 error_log("Error sending notification: " . $e->getMessage());
+                $emailStatus = "Failed: " . $e->getMessage();
             }
             
-            header("Location: leave_requests.php?success=request_rejected");
+            header("Location: leave_requests.php?success=request_rejected&email=" . urlencode($emailStatus));
             exit();
         } else {
             header("Location: leave_requests.php?error=db_error");

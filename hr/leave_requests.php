@@ -450,8 +450,14 @@ $leaveTypes = $conn->query("SELECT LeaveTypeID, LeaveName FROM leave_types ORDER
                 <?php 
                     if ($_GET['success'] === 'request_approved') {
                         echo "Leave request has been approved successfully.";
+                        if (isset($_GET['email'])) {
+                            echo " Email notification: " . htmlspecialchars($_GET['email']);
+                        }
                     } elseif ($_GET['success'] === 'request_rejected') {
                         echo "Leave request has been rejected.";
+                        if (isset($_GET['email'])) {
+                            echo " Email notification: " . htmlspecialchars($_GET['email']);
+                        }
                     }
                 ?>
             </div>

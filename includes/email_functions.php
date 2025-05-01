@@ -125,7 +125,7 @@ if (!function_exists('sendLeaveStatusNotification')) {
         $columnExists = mysqli_query($conn, $checkColumnQuery)->num_rows > 0;
 
         // Get request details with rejection reason if available
-        $query = "SELECT lr.*, u.Email as UserEmail, u.Fullnames, lt.LeaveName";
+        $query = "SELECT lr.*, u.EmailAddress as UserEmail, u.Fullnames, lt.LeaveName";
         
         if ($columnExists) {
             $query .= ", lr.RejectionReason";
@@ -177,7 +177,22 @@ if (!function_exists('sendLeaveStatusNotification')) {
             
             return true;
         } catch (Exception $e) {
+            error_log("Email send error: " . $e->getMessage());
             throw new Exception("Error sending email: " . $e->getMessage());
         }
+    }
+}
+
+// Add a new function to check if email notifications are enabled
+if (!function_exists('areNotificationsEnabled')) {
+    function areNotificationsEnabled($conn) {
+        // Check if email settings exist and are properly configured
+        $settings = getEmailSettings($conn);
+        if (!$settings || empty($settings['smtp_host']) || empty($settings['smtp_username']) || 
+            empty($settings['smtp_password']) || empty($settings['smtp_from_email'])) {
+            return false;
+        }
+        
+        return true;
     }
 }

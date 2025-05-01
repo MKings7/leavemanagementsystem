@@ -38,8 +38,9 @@ if (!function_exists('sendLeaveExpiryNotifications')) {
         $targetDate = date('Y-m-d', strtotime("+$daysBeforeExpiry days"));
         
         // Find leaves ending on the target date
+        // FIX: Changed u.Email to u.EmailAddress to match the database schema
         $query = "SELECT lr.RequestID, lr.UserID, lr.StartDate, lr.EndDate, 
-                  u.Fullnames, u.Email as UserEmail, lt.LeaveName
+                  u.Fullnames, u.EmailAddress as UserEmail, lt.LeaveName
                   FROM leave_requests lr
                   JOIN users u ON lr.UserID = u.UserID
                   JOIN leave_types lt ON lr.LeaveTypeID = lt.LeaveTypeID
