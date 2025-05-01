@@ -1,0 +1,100 @@
+[2025-03-29 13:19:23] Failed login attempt - Invalid credentials - Username: admin - IP: 127.0.0.1
+[2025-03-29 13:24:17] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 13:25:11] Failed login attempt - Invalid credentials - Username: HR Administrator - IP: 127.0.0.1
+[2025-03-29 13:25:18] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 13:32:57] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 13:35:13] Failed login attempt - Invalid credentials - Username: admin - IP: 127.0.0.1
+[2025-03-29 13:36:34] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 14:03:32] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 14:05:40] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 14:06:06] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 14:17:14] Failed login attempt - Invalid credentials - Username: smuyuka - IP: 127.0.0.1
+[2025-03-29 14:17:28] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 14:18:00] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 14:18:34] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 14:20:06] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 14:20:41] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 14:25:28] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 14:26:48] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 14:29:06] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 14:30:33] Failed login attempt - Invalid credentials - Username: admin - IP: 127.0.0.1
+[2025-03-29 14:30:40] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 15:07:21] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 15:07:34] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 15:15:04] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 15:35:59] Successful login - UserID: 22 - IP: 127.0.0.1
+[2025-03-29 15:36:14] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 15:41:35] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 15:43:10] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 15:52:46] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 16:00:24] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 16:03:10] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 16:03:44] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 16:07:51] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 16:08:17] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 16:12:14] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 16:12:33] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 16:14:24] Successful login - UserID: 9 - IP: 127.0.0.1
+[2025-03-29 16:15:19] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 16:16:09] Successful login - UserID: 9 - IP: 127.0.0.1
+[2025-03-29 16:16:32] Successful login - UserID: 9 - IP: 127.0.0.1
+[2025-03-29 16:16:58] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 16:17:50] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 16:18:04] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 16:20:56] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 16:23:40] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 16:23:55] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 18:07:57] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 18:08:19] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 18:12:10] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-29 18:18:30] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-03-29 18:23:32] Successful login - UserID: 7 - IP: 127.0.0.1
+[2025-03-29 18:24:50] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-29 18:25:09] Successful login - UserID: 7 - IP: 127.0.0.1
+[2025-03-29 18:26:27] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-30 10:45:24] Failed login attempt - Invalid credentials - Username: earadwa - IP: 127.0.0.1
+[2025-03-30 10:45:35] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-30 10:51:48] Successful login - UserID: 8 - IP: 127.0.0.1
+[2025-03-30 10:52:43] Failed login attempt - Invalid credentials - Username: simbiakha - IP: 127.0.0.1
+[2025-03-30 10:53:26] Failed login attempt - Invalid credentials - Username: simbiakha - IP: 127.0.0.1
+[2025-03-30 10:53:37] Successful login - UserID: 10 - IP: 127.0.0.1
+[2025-03-30 10:54:36] Failed login attempt - Invalid credentials - Username: bshimuli - IP: 127.0.0.1
+[2025-03-30 10:55:24] Successful login - UserID: 6 - IP: 127.0.0.1
+[2025-03-30 10:56:41] Successful login - UserID: 10 - IP: 127.0.0.1
+[2025-03-30 10:56:53] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-30 10:57:13] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-30 10:58:37] Successful login - UserID: 8 - IP: 127.0.0.1
+[2025-03-30 10:59:33] Successful login - UserID: 10 - IP: 127.0.0.1
+[2025-03-30 10:59:48] Successful login - UserID: 8 - IP: 127.0.0.1
+[2025-03-30 11:00:26] Successful login - UserID: 6 - IP: 127.0.0.1
+[2025-03-30 11:14:25] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-30 11:14:58] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-03-30 11:16:35] Successful login - UserID: 6 - IP: 127.0.0.1
+[2025-03-30 11:59:01] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-30 12:08:58] Successful login - UserID: 6 - IP: 127.0.0.1
+[2025-03-30 12:10:40] Successful login - UserID: 13 - IP: 127.0.0.1
+[2025-03-30 12:11:13] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-03-30 12:12:39] Successful login - UserID: 6 - IP: 127.0.0.1
+[2025-03-30 12:13:21] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-04-02 10:56:56] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-04-02 10:58:10] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-02 10:58:43] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-04-02 11:01:37] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-03 12:56:32] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-04-03 13:01:09] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-03 14:06:45] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-04-03 14:13:04] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-03 14:44:07] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-04-03 14:44:52] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-07 11:20:40] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-04-07 13:14:14] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-04-07 13:15:01] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-29 16:04:06] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-04-29 16:04:27] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-04-29 16:05:12] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-30 14:28:59] Successful login - UserID: 5 - IP: 127.0.0.1
+[2025-04-30 18:13:41] Failed login attempt - Invalid credentials - Username: admin - IP: 127.0.0.1
+[2025-04-30 18:13:53] Successful login - UserID: 20 - IP: 127.0.0.1
+[2025-04-30 18:14:06] Successful login - UserID: 4 - IP: 127.0.0.1
+[2025-04-30 18:18:47] Successful login - UserID: 1 - IP: 127.0.0.1
+[2025-04-30 18:21:40] Successful login - UserID: 20 - IP: 127.0.0.1

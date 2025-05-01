@@ -1,0 +1,706 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin-top: 120px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+
+/* Main Content Container */
+.container {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 1080px;
+    width: calc(100% - 280px); /* Adjusting width in relation to the sidebar */
+    margin-left: 280px; /* Same width as sidebar */
+    transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 700px;
+        width: calc(100% - 200px);
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
+        padding: 15px;
+    }
+}
+
+.mn-content.fixed-sidebar .mn-inner {
+    padding-left: 245px;
+    width: 100%;
+}
+
+h1 {
+    color: yellow;
+    font-family: "Inknut Antiqua", serif;
+    font-size: 2rem;
+    margin: 20px 0;
+}
+
+h2 {
+    color: white;
+    font-family: "Inknut Antiqua", serif;
+    font-size: 26px;
+    margin: 10px 0;
+}
+
+p {
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    margin: 10px 0;
+}
+
+form {
+    max-width: 400px;
+    width: 90%;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
+}
+
+label {
+    font-weight: bold;
+    color: white;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: yellow;
+    box-shadow: 0 0 5px rgba(255, 255, 0, 0.5);
+    outline: none;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    width: 100%;
+    background-color: #031C01;
+    color: #D8FEFC;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: yellow;
+    transform: scale(1.02);
+}
+
+input[type="submit"]:active,
+input[type="reset"]:active {
+    transform: scale(0.98);
+}
+
+a {
+    color: yellow;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+a:hover {
+    color: #D8FEFC;
+    text-decoration: underline;
+    transform: translateX(5px);
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #D8FEFC;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Input Fields */
+/* Forms */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Responsive Form */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 1rem;
+        padding: 8px;
+    }
+}
+/* 
+textarea {
+    height: 80px;
+    resize: none;
+}
+ */
+/* Buttons */
+button {
+    background: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #218838;
+}
+
+/* Links */
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #fff;
+    text-decoration: none;
+    background: #007BFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+a:hover {
+    background: #0056b3;
+}
+
+/* Statistics Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-left: 4px solid #2f3b52;
+}
+
+.stat-card.pending {
+    border-left-color: #ffc107;
+}
+
+.stat-card.approved {
+    border-left-color: #28a745;
+}
+
+.stat-card.rejected {
+    border-left-color: #dc3545;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2f3b52;
+}
+
+.stat-label {
+    color: #444;
+    /* Improved contrast */
+    margin-top: 5px;
+}
+
+/* Search and Filter Styles */
+.search-filter-form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input,
+.status-filter {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.filter-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    background-color: #45a049;
+}
+
+.clear-btn {
+    color: #666;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+.clear-btn:hover {
+    color: #333;
+}
+
+/* Navigation Bar */
+.menubar {
+    background-color: #2f3b52;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.menubar a {
+    color: white;
+    text-decoration: none;
+    margin-right: auto;
+    font-size: 14px;
+}
+
+.menubar a:hover {
+    color: #f1f1f1;
+}
+
+.menubar .user-id {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Menubar Left (Portal Title) */
+.portal-title {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+/* Menubar Right (User Info & Logout) */
+.menubar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Logout Button */
+.logout-btn {
+    color: white;
+    text-decoration: none;
+    background: #dc3545;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.logout-btn:hover {
+    background: #c82333;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .portal-title {
+        font-size: 1.2rem;
+    }
+
+    .menubar-right {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #2f3b52;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .menubar-right.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* General Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #2f3b52;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0; /* Always visible on desktop */
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+/* Hide Sidebar on Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 20px 10px;
+    border-bottom: 1px solid #3b4b63;
+    position: relative;
+}
+
+/* Sidebar Logo */
+.sidebar-logo {
+    width: 80px; /* Adjust size */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Close Button (X) - Only Visible on Mobile */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* Hide on desktop */
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    padding: 1px;
+    transition: background 0.3s ease;
+}
+
+.sidebar-menu li a {
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+}
+
+.sidebar-menu li:hover {
+    background: #1f2a37;
+    cursor: pointer;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #3b4b63;
+}
+
+.sidebar-footer a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.sidebar-footer a:hover {
+    color: #f1f1f1;
+}
+
+/* Menu Toggle Button for Mobile */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    background: #2f3b52;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1100;
+}
+
+/* Ensure Toggle Button Does Not Overlap Header */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .close-btn {
+        display: block;
+    }
+}
+/* Main Content */
+.main-content {
+    margin-left: 250px; /* Space for sidebar on desktop */
+    padding: 20px;
+    width: calc(100% - 250px);
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Responsive Body on Mobile */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 15px;
+    }
+}
+/* .container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+/* Table Styles */
+/* Responsive Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Ensure Table Scrolls on Small Screens */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    th, td {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* Approve & Reject Buttons */
+button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.approve {
+    background-color: #28a745;
+    color: white;
+}
+
+.reject {
+    background-color: #dc3545;
+    color: white;
+}
+
+.approve:hover {
+    background-color: #218838;
+}
+
+.reject:hover {
+    background-color: #c82333;
+}
+
+/* Logout Button */
+a.logout-btn {
+    margin: 20px 50px 0 0;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+a.logout-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .search-filter-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 100px;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+}
+/* ROW: Creates a flex container with proper spacing */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+/* COLUMNS: Ensures responsive behavior */
+.col {
+    flex: 1; /* Equal-width columns */
+    padding: 15px;
+}
+
+/* Custom column sizes for responsiveness */
+.col-1  { flex: 0 0 8.33%; max-width: 8.33%; }
+.col-2  { flex: 0 0 16.66%; max-width: 16.66%; }
+.col-3  { flex: 0 0 25%; max-width: 25%; }
+.col-4  { flex: 0 0 33.33%; max-width: 33.33%; }
+.col-5  { flex: 0 0 41.66%; max-width: 41.66%; }
+.col-6  { flex: 0 0 50%; max-width: 50%; }
+.col-7  { flex: 0 0 58.33%; max-width: 58.33%; }
+.col-8  { flex: 0 0 66.66%; max-width: 66.66%; }
+.col-9  { flex: 0 0 75%; max-width: 75%; }
+.col-10 { flex: 0 0 83.33%; max-width: 83.33%; }
+.col-11 { flex: 0 0 91.66%; max-width: 91.66%; }
+.col-12 { flex: 0 0 100%; max-width: 100%; }
+
+/* RESPONSIVENESS */
+/* Tablets */
+@media (max-width: 992px) {
+    .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+    .col-md-12 { flex: 0 0 100%; max-width: 100%; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
+}
