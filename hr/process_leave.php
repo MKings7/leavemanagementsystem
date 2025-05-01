@@ -44,6 +44,26 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
     $stmt->bind_param("sssi", $status, $userID, $currentTime, $requestID);
     
     if ($stmt->execute()) {
+        // Send email notification
+        include_once "../includes/email_functions.php";
+        try {
+            sendLeaveStatusNotification($conn, $requestID, $status);
+            
+            // Also add a database notification
+            $requestQuery = $conn->prepare("SELECT UserID FROM leave_requests WHERE RequestID = ?");
+            $requestQuery->bind_param("i", $requestID);
+            $requestQuery->execute();
+            $result = $requestQuery->get_result();
+            $employeeID = $result->fetch_assoc()['UserID'];
+            
+            // Create notification
+            $message = "Your leave request has been " . strtolower($status) . ".";
+            $conn->query("INSERT INTO notifications (UserID, Message, Type, IsRead) VALUES ($employeeID, '$message', 'leave_status', 0)");
+        } catch (Exception $e) {
+            // Log error but continue processing
+            error_log("Error sending notification: " . $e->getMessage());
+        }
+        
         // Log the action
         $logMessage = "Leave request #$requestID was $status by user $userID at $currentTime\n";
         file_put_contents('../leave_actions.log', $logMessage, FILE_APPEND);
@@ -95,6 +115,26 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
         }
         
         if ($stmt->execute()) {
+            // Send email notification
+            include_once "../includes/email_functions.php";
+            try {
+                sendLeaveStatusNotification($conn, $requestID, $status);
+                
+                // Also add a database notification with rejection reason
+                $requestQuery = $conn->prepare("SELECT UserID FROM leave_requests WHERE RequestID = ?");
+                $requestQuery->bind_param("i", $requestID);
+                $requestQuery->execute();
+                $result = $requestQuery->get_result();
+                $employeeID = $result->fetch_assoc()['UserID'];
+                
+                // Create notification with rejection reason
+                $message = "Your leave request has been rejected. Reason: " . $rejectionReason;
+                $conn->query("INSERT INTO notifications (UserID, Message, Type, IsRead) VALUES ($employeeID, '$message', 'leave_status', 0)");
+            } catch (Exception $e) {
+                // Log error but continue processing
+                error_log("Error sending notification: " . $e->getMessage());
+            }
+            
             header("Location: leave_requests.php?success=request_rejected");
             exit();
         } else {
@@ -322,6 +362,9 @@ if ($action === 'approve' || ($action === 'reject' && $_SERVER['REQUEST_METHOD']
             <li><a href="leave_types.php"><i class="fas fa-list"></i> Leave Types</a></li>
             <li><a href="reports.php"><i class="fas fa-chart-bar"></i> Reports</a></li>
             <li><a href="settings.php"><i class="fas fa-cog"></i> Settings</a></li>
+            <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>
+            <li><a href="../admin/scheduled_tasks.php"><i class="fas fa-clock"></i> Scheduled Tasks</a></li>
+            <?php endif; ?>
         </ul>
         
         <div class="sidebar-footer">

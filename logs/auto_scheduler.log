@@ -1,0 +1,2 @@
+[2025-05-01 12:36:42] Error running task leave_expiry_notification: Unknown column 'u.Email' in 'field list'
+[2025-05-01 12:36:59] Error running task leave_expiry_notification: Unknown column 'u.Email' in 'field list'

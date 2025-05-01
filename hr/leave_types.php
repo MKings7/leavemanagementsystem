@@ -361,6 +361,9 @@ $leaveTypes = $conn->query($query);
             <li><a href="leave_types.php" class="active"><i class="fas fa-list"></i> Leave Types</a></li>
             <li><a href="reports.php"><i class="fas fa-chart-bar"></i> Reports</a></li>
             <li><a href="settings.php"><i class="fas fa-cog"></i> Settings</a></li>
+            <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1): ?>
+            <li><a href="../admin/scheduled_tasks.php"><i class="fas fa-clock"></i> Scheduled Tasks</a></li>
+            <?php endif; ?>
         </ul>
         
         <div class="sidebar-footer">

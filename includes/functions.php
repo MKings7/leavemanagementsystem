@@ -170,4 +170,8 @@ function getSubstitutionRequests($conn, $userID) {
     mysqli_stmt_execute($stmt);
     return mysqli_stmt_get_result($stmt);
 }
+
+// Include the auto scheduler at the end of the file
+// This will allow background tasks to run automatically
+require_once __DIR__ . '/auto_scheduler.php';
 ?>
